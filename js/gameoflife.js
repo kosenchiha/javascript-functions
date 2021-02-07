@@ -15,7 +15,29 @@ const printCell = (cell, state) => {
   return contains.call(state, cell) ? "\u25A3" : "\u25A2";
 };
 
-const corners = (state = []) => {};
+const corners = (state = []) => {
+  if (state.length === 0) {
+    return {
+      topRight: [0, 0],
+      bottomLeft: [0, 0],
+    };
+  }
+  let maxFirst = state[0][0];
+  let maxLast = state[0][1];
+  let minFirst = state[0][0];
+  let minLast = state[0][1];
+  state.forEach((arr) => {
+    if (maxFirst < arr[0]) maxFirst = arr[0];
+    if (maxLast < arr[1]) maxLast = arr[1];
+    if (minFirst > arr[0]) minFirst = arr[0];
+    if (minLast > arr[1]) minLast = arr[1];
+  });
+
+  return {
+    topRight: [maxFirst, maxLast],
+    bottomLeft: [minFirst, minLast],
+  };
+};
 
 const printCells = (state) => {};
 
